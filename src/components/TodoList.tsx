@@ -32,7 +32,9 @@ function FilterButton({
       onClick={onClick}
       className={[
         'appearance-none text-sm font-bold outline-none transition-colors',
-        active ? 'text-[#3a7cfd]' : 'text-[#5b5e7e] hover:text-[#e3e4f1]',
+        active
+          ? 'text-[#3a7cfd]'
+          : 'text-[#9495A5] hover:text-[#494C6B] dark:text-[#5b5e7e] dark:hover:text-[#e3e4f1]',
       ].join(' ')}
     >
       {children}
@@ -58,7 +60,7 @@ export default function TodoList({
 
   return (
     <section className="mt-4">
-      <div className="overflow-hidden rounded-md bg-[#25273D] shadow-[0_35px_50px_-15px_rgba(0,0,0,0.5)]">
+      <div className="overflow-hidden rounded-md bg-white shadow-[0_35px_50px_-15px_rgba(0,0,0,0.15)] transition-colors dark:bg-[#25273D] dark:shadow-[0_35px_50px_-15px_rgba(0,0,0,0.5)]">
         <ul>
           {visible.map((t) => (
             <TodoItem
@@ -72,7 +74,7 @@ export default function TodoList({
           ))}
         </ul>
 
-        <div className="flex items-center justify-between px-5 py-4 text-sm text-[#5b5e7e]">
+        <div className="flex items-center justify-between px-5 py-4 text-sm text-[#9495A5] transition-colors dark:text-[#5b5e7e]">
           <span>{remaining} items left</span>
 
           <div className="hidden items-center gap-4 sm:flex">
@@ -93,14 +95,14 @@ export default function TodoList({
           <button
             type="button"
             onClick={onClearCompleted}
-            className="appearance-none outline-none transition-colors hover:text-[#e3e4f1]"
+            className="appearance-none outline-none transition-colors hover:text-[#494C6B] dark:hover:text-[#e3e4f1]"
           >
             Clear Completed
           </button>
         </div>
       </div>
 
-      <div className="mt-4 rounded-md bg-[#25273D] px-5 py-4 shadow-[0_35px_50px_-15px_rgba(0,0,0,0.5)] sm:hidden">
+      <div className="mt-4 rounded-md bg-white px-5 py-4 shadow-[0_35px_50px_-15px_rgba(0,0,0,0.15)] transition-colors dark:bg-[#25273D] dark:shadow-[0_35px_50px_-15px_rgba(0,0,0,0.5)] sm:hidden">
         <div className="flex items-center justify-center gap-4">
           <FilterButton active={filter === 'all'} onClick={() => onFilterChange('all')}>
             All
@@ -114,7 +116,7 @@ export default function TodoList({
         </div>
       </div>
 
-      <p className="mt-10 text-center text-sm text-[#5b5e7e]">
+      <p className="mt-10 text-center text-sm text-[#9495A5] dark:text-[#5b5e7e]">
         Drag and drop to reorder list
       </p>
     </section>

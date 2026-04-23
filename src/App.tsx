@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import TodoHeader from './components/TodoHeader';
+import { useEffect, useMemo, useState } from 'react';
+import TodoHeader, { type Theme } from './components/TodoHeader';
 import TodoInput from './components/TodoInput';
 import TodoList, { type Todo, type TodoFilter } from './components/TodoList';
 
@@ -18,21 +18,39 @@ const initialTodos: Todo[] = [
 export default function App() {
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
   const [filter, setFilter] = useState<TodoFilter>('all');
+  const [theme, setTheme] = useState<Theme>(() => {
+    const saved = localStorage.getItem('theme');
+    return saved === 'light' || saved === 'dark' ? saved : 'dark';
+  });
 
-  const background = useMemo(
-    () => ({
-      backgroundImage: "url('/bg-desktop-dark.jpg')",
-    }),
-    [],
-  );
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
+
+  const background = useMemo(() => {
+    const file = theme === 'dark' ? 'bg-desktop-dark.jpg' : 'bg-desktop-light.jpg';
+    return { backgroundImage: `url('/${file}')` };
+  }, [theme]);
 
   return (
-    <div className="min-h-screen bg-[#171823]">
+    <div className="min-h-screen bg-[#f2f2f2] text-[#494C6B] transition-colors dark:bg-[#171823] dark:text-[#c8cbe7]">
       <div className="h-[300px] w-full bg-cover bg-center" style={background} />
 
       <div className="-mt-[220px] px-6 pb-16">
         <div className="mx-auto max-w-xl">
-          <TodoHeader />
+          <TodoHeader
+            theme={theme}
+            toggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+          />
 
           <TodoInput
             onAdd={(text) => {

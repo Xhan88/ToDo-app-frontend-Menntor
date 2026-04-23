@@ -14,7 +14,7 @@ export default function TodoItem({
   onDelete,
 }: TodoItemProps) {
   return (
-    <li className="group flex items-center justify-between gap-4 border-b border-[#393a4c] px-5 py-4">
+    <li className="group flex items-center justify-between gap-4 border-b border-gray-200 px-5 py-4 transition-colors dark:border-gray-700/50">
       <button
         type="button"
         onClick={() => onToggle(id)}
@@ -26,7 +26,7 @@ export default function TodoItem({
             'grid h-6 w-6 appearance-none place-items-center rounded-full border transition-colors',
             completed
               ? 'border-transparent bg-gradient-to-br from-[#55DDFF] to-[#C058F3]'
-              : 'border-[#393a4c] hover:border-[#55DDFF]',
+              : 'border-gray-300 hover:border-[#55DDFF] dark:border-[#393a4c]',
           ].join(' ')}
           aria-hidden="true"
         >
@@ -45,7 +45,9 @@ export default function TodoItem({
         <span
           className={[
             'text-[0.95rem] transition-colors',
-            completed ? 'text-[#4d5067] line-through' : 'text-[#c8cbe7]',
+            completed
+              ? 'text-[#d1d2da] line-through dark:text-[#4d5067]'
+              : 'text-[#494C6B] dark:text-[#c8cbe7]',
           ].join(' ')}
         >
           {text}
@@ -60,7 +62,7 @@ export default function TodoItem({
       >
         <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
           <path
-            fill="#494C6B"
+            fill="currentColor"
             fillRule="evenodd"
             d="M16.97 0.97a.75.75 0 0 1 0 1.06L10.06 9l6.91 6.97a.75.75 0 1 1-1.06 1.06L9 10.06l-6.97 6.97a.75.75 0 1 1-1.06-1.06L7.94 9 .97 2.03A.75.75 0 1 1 2.03.97L9 7.94 15.91.97a.75.75 0 0 1 1.06 0Z"
           />
